@@ -43,8 +43,8 @@ body {
     width: 90vw;
     max-width: 400px;
     min-height: 480px; 
-    /* Üstten boşluğu azalttık ki Hilltown yazısı sığsın */
-    padding: 180px 20px 30px 20px; 
+    /* Padding'i 150px'e düşürdük ki Hilltown yazısı yukarı çıksın ve görünsün */
+    padding: 150px 20px 30px 20px; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -71,9 +71,9 @@ h1 {
 }
 
 .cat {
-    width: 110px;
+    width: 120px;
     height: auto;
-    margin: 5px 0;
+    margin: 10px 0;
 }
 
 .buttons {
@@ -81,30 +81,31 @@ h1 {
     justify-content: center;
     align-items: center;
     gap: 20px;
-    margin-top: 10px;
+    margin-top: 15px;
     width: 100%;
+    /* Butonlar gidince alanın boş kalmaması için */
+    min-height: 50px; 
 }
 
 .btn {
     width: 80px;
     height: auto;
     cursor: pointer;
-    transition: transform 0.2s;
 }
 
-/* Hayır butonu kaçarken Evet butonunun kaymaması için */
 .no-wrapper {
     width: 80px;
     height: 45px;
 }
 
 .final-text {
-    font-size: 15px;
-    line-height: 1.4;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.85);
-    border-radius: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
     margin-top: 10px;
-    width: 90%;
-    color: #d63384; /* Yazıyı daha okunur bir renk yapabilirsin */
+    width: 85%;
+    color: #333;
+    border: 2px dashed #ffb6c1;
 }

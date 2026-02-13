@@ -17,24 +17,27 @@ envelope.addEventListener("click", () => {
     }, 50);
 });
 
-// Hayır Butonu Kaçış Fonksiyonu
+// Kaçış Fonksiyonu (Ekran sınırları dahilinde)
 function moveButton(e) {
     if (e) e.preventDefault();
 
-    // Butonun boyutlarını al
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
 
-    // Ekranın %10 ve %80'i arasında güvenli bir alanda gezinsin
-    // Bu sayede ne en üste ne de en sağa yapışır
-    const randomX = Math.floor(Math.random() * 70) + 10; 
-    const randomY = Math.floor(Math.random() * 70) + 15; 
+    // Ekranın en kenarlarından 30px pay bırakıyoruz ki buton dışarı taşmasın
+    const padding = 30;
+    const maxX = window.innerWidth - btnWidth - padding;
+    const maxY = window.innerHeight - btnHeight - padding;
+
+    // Minimum ve Maksimum arasında rastgele bir yer seç
+    const randomX = Math.floor(Math.random() * (maxX - padding)) + padding;
+    const randomY = Math.floor(Math.random() * (maxY - padding)) + padding;
 
     noBtn.style.position = "fixed";
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
     noBtn.style.zIndex = "9999";
-    noBtn.style.left = randomX + "%";
-    noBtn.style.top = randomY + "%";
-    noBtn.style.transform = "translate(-50%, -50%)"; // Tam ortalı kaçış
+    noBtn.style.transform = "none"; // Kaymayı önlemek için transformu sıfırladık
     noBtn.style.transition = "all 0.2s ease-out";
 }
 
@@ -46,14 +49,13 @@ yesBtn.addEventListener("click", () => {
     title.textContent = "YAAAAYYY!";
     catImg.src = "cat_dance.gif";
     
-    // BUTONLARI GİZLE: Tüm buton konteynırını kapatıyoruz
+    // 1. Butonların olduğu alanı tamamen gizle (Evet burada gider)
     buttons.style.display = "none";
-    // Eğer Hayır butonu fixed olarak ekranın başka yerindeyse onu da siliyoruz
+    
+    // 2. Eğer Hayır butonu o an ekranın başka yerindeyse onu da gizle
     noBtn.style.display = "none"; 
     
-    // Yazıyı Göster
+    // 3. Yazıyı göster ve Hilltown yazısının sığması için alanı genişlet
     finalText.style.display = "block";
-    
-    // İçeriği biraz daha yukarı çekerek Hilltown yazısını tam sığdırıyoruz
-    win.style.paddingTop = "140px";
+    win.style.paddingTop = "140px"; // İçeriği yukarı çekerek Hilltown'u gösterir
 });

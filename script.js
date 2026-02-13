@@ -8,7 +8,7 @@ const buttons = document.getElementById("letter-buttons");
 const finalText = document.getElementById("final-text");
 const win = document.querySelector(".letter-window");
 
-// Zarfı Açma
+// Zarf Açma
 envelope.addEventListener("click", () => {
     envelope.style.display = "none";
     letter.style.display = "flex";
@@ -17,45 +17,46 @@ envelope.addEventListener("click", () => {
     }, 50);
 });
 
-// Kaçış Fonksiyonu (Ekran sınırları dahilinde)
+// Hayır Butonu Kaçış (Ekran dışına asla çıkmaz)
 function moveButton(e) {
     if (e) e.preventDefault();
 
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
 
-    // Ekranın en kenarlarından 30px pay bırakıyoruz ki buton dışarı taşmasın
-    const padding = 30;
-    const maxX = window.innerWidth - btnWidth - padding;
-    const maxY = window.innerHeight - btnHeight - padding;
+    // Ekranın iç sınırlarını hesapla (Güvenli Alan: 20px içeriden)
+    const maxX = window.innerWidth - btnWidth - 20;
+    const maxY = window.innerHeight - btnHeight - 20;
 
-    // Minimum ve Maksimum arasında rastgele bir yer seç
-    const randomX = Math.floor(Math.random() * (maxX - padding)) + padding;
-    const randomY = Math.floor(Math.random() * (maxY - padding)) + padding;
+    // 20px'den başlayan rastgele koordinat
+    const randomX = Math.max(20, Math.floor(Math.random() * maxX));
+    const randomY = Math.max(20, Math.floor(Math.random() * maxY));
 
+    // Butonu ekranda rastgele yere sabitle
     noBtn.style.position = "fixed";
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
-    noBtn.style.zIndex = "9999";
-    noBtn.style.transform = "none"; // Kaymayı önlemek için transformu sıfırladık
+    noBtn.style.margin = "0";
+    noBtn.style.zIndex = "1000";
     noBtn.style.transition = "all 0.2s ease-out";
 }
 
 noBtn.addEventListener("touchstart", moveButton);
 noBtn.addEventListener("mouseover", moveButton);
 
-// YES tıklandığında
+// YES Tıklanma Olayı
 yesBtn.addEventListener("click", () => {
+    // 1. Yazıyı ve Kediyi Değiştir
     title.textContent = "YAAAAYYY!";
     catImg.src = "cat_dance.gif";
     
-    // 1. Butonların olduğu alanı tamamen gizle (Evet burada gider)
-    buttons.style.display = "none";
-    
-    // 2. Eğer Hayır butonu o an ekranın başka yerindeyse onu da gizle
-    noBtn.style.display = "none"; 
-    
-    // 3. Yazıyı göster ve Hilltown yazısının sığması için alanı genişlet
+    // 2. Butonları KÖKTEN SİL (Evet ve Hayır ikisi de gider)
+    if (buttons) buttons.remove(); // Evet butonu burada gider
+    if (noBtn) noBtn.remove();     // Ekranın başka yerindeki Hayır burada gider
+
+    // 3. Final Metnini Göster
     finalText.style.display = "block";
-    win.style.paddingTop = "140px"; // İçeriği yukarı çekerek Hilltown'u gösterir
+    
+    // 4. Hilltown yazısının görünmesi için pencereyi ayarla
+    win.style.paddingTop = "130px";
 });

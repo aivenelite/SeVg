@@ -16,31 +16,38 @@ envelope.addEventListener("click", () => {
     }, 50);
 });
 
-// Kesin Kaçma Fonksiyonu (Yüzde Bazlı Mantık)
+// Kesin Kaçma Fonksiyonu
 function moveButton(e) {
     if (e) e.preventDefault();
 
-    // Butonu wrapper'dan koparıp doğrudan body'ye veya ekranın en üst katmanına sabitle
-    noBtn.style.position = "fixed";
-    noBtn.style.zIndex = "9999";
-    noBtn.style.margin = "0"; // Varsa dış boşlukları sıfırla
-
-    // Butonun kapladığı alanı ekranın yüzdesi olarak hesaplayalım (Güvenli kaçış)
-    // Genişlik ve yükseklik için %15-20 gibi bir pay bırakıyoruz ki kenara yapışmasın
-    const randomX = Math.floor(Math.random() * 70) + 10; // %10 ile %80 arası
-    const randomY = Math.floor(Math.random() * 70) + 10; // %10 ile %80 arası
-
-    // Koordinatları ekrana uygula
-    noBtn.style.left = randomX + "%";
-    noBtn.style.top = randomY + "%";
+    const padding = 30; // Kenarlardan güvenli boşluk
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
     
-    // Transform'u temizle (çünkü artık left/top ile hareket ediyor)
-    noBtn.style.transform = "none"; 
-    noBtn.style.transition = "all 0.2s ease-out";
+    // Ekranın gerçek boyutlarını al
+    const screenW = window.innerWidth;
+    const screenH = window.innerHeight;
+
+    // Butonun gidebileceği maksimum koordinatları sınırla
+    const maxX = screenW - btnWidth - padding;
+    const maxY = screenH - btnHeight - padding;
+
+    // Rastgele koordinat üret (En az padding kadar içeride olsun)
+    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+    // Pozisyonu sabitle ve uygula
+    noBtn.style.position = "fixed";
+    noBtn.style.left = "0px";
+    noBtn.style.top = "0px";
+    noBtn.style.zIndex = "9999";
+    
+    noBtn.style.transition = "transform 0.2s ease-out";
+    noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
 }
 
-// Mobilde hem dokunma hem üstüne gelme için
-noBtn.addEventListener("touchstart", moveButton, {passive: false});
+// Olay dinleyicileri
+noBtn.addEventListener("touchstart", moveButton);
 noBtn.addEventListener("mouseover", moveButton);
 
 // EVET tıklandığında
@@ -50,8 +57,7 @@ yesBtn.addEventListener("click", () => {
     buttons.style.display = "none";
     finalText.style.display = "block";
     
-    // Yazıları aşağı çekmek için padding ayarı
-    const windowEl = document.querySelector(".letter-window");
-    windowEl.style.paddingTop = "200px"; // Daha fazla aşağı almak için 200px yaptık
-    windowEl.style.justifyContent = "flex-start";
+    // Finalde yazıların sığması için padding'i biraz azaltalım
+    const win = document.querySelector(".letter-window");
+    win.style.paddingTop = "180px";
 });

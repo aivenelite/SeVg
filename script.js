@@ -16,37 +16,38 @@ envelope.addEventListener("click", () => {
     }, 50);
 });
 
-// Kesin Kaçma Fonksiyonu
+// %100 Kaçış Garantili Fonksiyon
 function moveButton(e) {
     if (e) e.preventDefault();
 
-    const padding = 30; // Kenarlardan güvenli boşluk
-    const btnWidth = noBtn.offsetWidth;
-    const btnHeight = noBtn.offsetHeight;
+    // Güvenlik Payı: Ekranın kenarlarından 60 piksel içeriye hapseder
+    const margin = 60; 
     
-    // Ekranın gerçek boyutlarını al
+    // Anlık ekran boyutları
     const screenW = window.innerWidth;
     const screenH = window.innerHeight;
 
-    // Butonun gidebileceği maksimum koordinatları sınırla
-    const maxX = screenW - btnWidth - padding;
-    const maxY = screenH - btnHeight - padding;
+    // Buton boyutları
+    const btnW = noBtn.offsetWidth;
+    const btnH = noBtn.offsetHeight;
 
-    // Rastgele koordinat üret (En az padding kadar içeride olsun)
-    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
-    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+    // Maksimum gidebileceği koordinat (Kenar boşluklarını ve buton boyutunu çıkarıyoruz)
+    const maxX = screenW - btnW - margin;
+    const maxY = screenH - btnH - margin;
 
-    // Pozisyonu sabitle ve uygula
+    // Koordinatları üret (minimum değer her zaman 'margin' kadar içeride olur)
+    const randomX = Math.floor(Math.random() * (maxX - margin)) + margin;
+    const randomY = Math.floor(Math.random() * (maxY - margin)) + margin;
+
+    // Pozisyonu zorla uygula
     noBtn.style.position = "fixed";
     noBtn.style.left = "0px";
     noBtn.style.top = "0px";
-    noBtn.style.zIndex = "9999";
     
     noBtn.style.transition = "transform 0.2s ease-out";
     noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
 }
 
-// Olay dinleyicileri
 noBtn.addEventListener("touchstart", moveButton);
 noBtn.addEventListener("mouseover", moveButton);
 
@@ -57,7 +58,7 @@ yesBtn.addEventListener("click", () => {
     buttons.style.display = "none";
     finalText.style.display = "block";
     
-    // Finalde yazıların sığması için padding'i biraz azaltalım
-    const win = document.querySelector(".letter-window");
-    win.style.paddingTop = "180px";
+    // "YAAAAYYY" ve içeriği daha da aşağı indirmek için padding'i artır
+    const windowEl = document.querySelector(".letter-window");
+    windowEl.style.paddingTop = "260px"; // Burası yazıları aşağı çeker
 });

@@ -7,6 +7,7 @@ const catImg = document.getElementById("letter-cat");
 const buttons = document.getElementById("letter-buttons");
 const finalText = document.getElementById("final-text");
 
+// Zarfı Açma
 envelope.addEventListener("click", () => {
     envelope.style.display = "none";
     letter.style.display = "flex";
@@ -15,44 +16,44 @@ envelope.addEventListener("click", () => {
     }, 50);
 });
 
+// Kesin Ekran Sınırları İçinde Kaçma Fonksiyonu
 function moveButton(e) {
     if (e) e.preventDefault();
 
-    // Butonun boyutlarını al
-    const btnRect = noBtn.getBoundingClientRect();
-    const btnWidth = btnRect.width;
-    const btnHeight = btnRect.height;
+    const padding = 25; // Kenarlardan güvenli mesafe
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
 
-    // Ekran boyutlarını al
+    // Ekranın o anki boyutlarını al
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
 
-    // Güvenli alan hesapla (butonun boyutu kadar pay bırakıyoruz)
-    const maxX = screenWidth - btnWidth;
-    const maxY = screenHeight - btnHeight;
+    // Maksimum gidebileceği yer (Ekran - Buton Boyutu - Padding)
+    const maxX = screenWidth - btnWidth - padding;
+    const maxY = screenHeight - btnHeight - padding;
 
-    // Rastgele pozisyon (0 ile MaxX/Y arasında)
-    const randomX = Math.floor(Math.random() * maxX);
-    const randomY = Math.floor(Math.random() * maxY);
+    // Rastgele koordinat (Padding ile Max arasını zorunlu tutar)
+    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
 
-    // Stilleri uygula
+    // Butonu ekrana göre sabitle ve ışınla
     noBtn.style.position = "fixed";
     noBtn.style.left = "0";
     noBtn.style.top = "0";
-    noBtn.style.zIndex = "9999";
-    
-    // Translate yerine doğrudan left/top kullanmak mobilde daha garantidir
-    noBtn.style.transition = "all 0.2s ease-out";
+    noBtn.style.transition = "transform 0.2s ease-out";
     noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
 }
 
-noBtn.addEventListener("mouseover", moveButton);
 noBtn.addEventListener("touchstart", moveButton);
+noBtn.addEventListener("mouseover", moveButton);
 
+// EVET tıklandığında
 yesBtn.addEventListener("click", () => {
     title.textContent = "YAAAAYYY!";
     catImg.src = "cat_dance.gif";
-    document.querySelector(".letter-window").classList.add("final");
     buttons.style.display = "none";
     finalText.style.display = "block";
+    
+    // Mektup içindeki boşluğu final metnine göre ayarla
+    document.querySelector(".letter-window").style.paddingTop = "120px";
 });

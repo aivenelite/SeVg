@@ -17,25 +17,24 @@ envelope.addEventListener("click", () => {
     }, 50);
 });
 
-// Kaçış Fonksiyonu
+// Hayır Butonu Kaçış Fonksiyonu
 function moveButton(e) {
     if (e) e.preventDefault();
 
+    // Butonun boyutlarını al
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
 
-    // Ekran sınırlarından 20px içeride kalmasını sağlıyoruz (Güvenli Alan)
-    const maxX = window.innerWidth - btnWidth - 20;
-    const maxY = window.innerHeight - btnHeight - 20;
-
-    // Minimum 20px'den başlatıyoruz ki sol/üst köşeye yapışmasın
-    const randomX = Math.max(20, Math.floor(Math.random() * maxX));
-    const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+    // Ekranın %10 ve %80'i arasında güvenli bir alanda gezinsin
+    // Bu sayede ne en üste ne de en sağa yapışır
+    const randomX = Math.floor(Math.random() * 70) + 10; 
+    const randomY = Math.floor(Math.random() * 70) + 15; 
 
     noBtn.style.position = "fixed";
-    noBtn.style.left = randomX + "px";
-    noBtn.style.top = randomY + "px";
-    noBtn.style.margin = "0"; // Kaymaları önlemek için margin sıfırla
+    noBtn.style.zIndex = "9999";
+    noBtn.style.left = randomX + "%";
+    noBtn.style.top = randomY + "%";
+    noBtn.style.transform = "translate(-50%, -50%)"; // Tam ortalı kaçış
     noBtn.style.transition = "all 0.2s ease-out";
 }
 
@@ -47,14 +46,14 @@ yesBtn.addEventListener("click", () => {
     title.textContent = "YAAAAYYY!";
     catImg.src = "cat_dance.gif";
     
-    // Hayır butonunu tamamen siliyoruz (Wrapper ile birlikte)
-    const noWrapper = document.querySelector(".no-wrapper");
-    if(noWrapper) noWrapper.remove();
-    noBtn.remove(); 
-
-    // Evet butonu ortada kalmaya devam eder, altındaki yazı açılır
+    // BUTONLARI GİZLE: Tüm buton konteynırını kapatıyoruz
+    buttons.style.display = "none";
+    // Eğer Hayır butonu fixed olarak ekranın başka yerindeyse onu da siliyoruz
+    noBtn.style.display = "none"; 
+    
+    // Yazıyı Göster
     finalText.style.display = "block";
     
-    // Final görünümü için pencere ayarı
-    win.style.paddingTop = "150px"; 
+    // İçeriği biraz daha yukarı çekerek Hilltown yazısını tam sığdırıyoruz
+    win.style.paddingTop = "140px";
 });

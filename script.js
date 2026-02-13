@@ -7,7 +7,6 @@ const catImg = document.getElementById("letter-cat");
 const buttons = document.getElementById("letter-buttons");
 const finalText = document.getElementById("final-text");
 
-// Zarfı Açma
 envelope.addEventListener("click", () => {
     envelope.style.display = "none";
     letter.style.display = "flex";
@@ -16,35 +15,32 @@ envelope.addEventListener("click", () => {
     }, 50);
 });
 
-// Kesin Kaçış Fonksiyonu
 function moveButton(e) {
     if (e) e.preventDefault();
 
-    // Güvenli alan: %15 ile %85 arası
+    // Güvenli alan hesaplama
     const randomX = Math.floor(Math.random() * 70) + 15; 
     const randomY = Math.floor(Math.random() * 70) + 15; 
 
+    // Hayır butonunu özgürleştir ama Evet'e dokunma
     noBtn.style.position = "fixed";
     noBtn.style.zIndex = "9999";
     noBtn.style.left = randomX + "%";
     noBtn.style.top = randomY + "%";
-    
-    // Sadece transform ve left/top değişsin, boyutlar oynamasın
-    noBtn.style.transform = "translate(-50%, -50%)"; 
-    noBtn.style.transition = "transform 0.2s ease-out, left 0.2s ease-out, top 0.2s ease-out";
+    noBtn.style.transform = "translate(-50%, -50%)";
+    noBtn.style.transition = "left 0.2s ease-out, top 0.2s ease-out";
 }
 
 noBtn.addEventListener("touchstart", moveButton);
 noBtn.addEventListener("mouseover", moveButton);
 
-// YES tıklandığında
 yesBtn.addEventListener("click", () => {
     title.textContent = "YAAAAYYY!";
     catImg.src = "cat_dance.gif";
     buttons.style.display = "none";
     finalText.style.display = "block";
     
-    // Pencereyi oynatmadan sadece içeriği aşağı itiyoruz
+    // YAAAAYYY yazısını iyice aşağı çekmek için
     const win = document.querySelector(".letter-window");
-    win.style.paddingTop = "260px"; 
+    win.style.paddingTop = "270px"; 
 });

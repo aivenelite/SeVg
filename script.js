@@ -17,12 +17,9 @@ envelope.addEventListener("click", () => {
 
 function moveButton(e) {
     if (e) e.preventDefault();
-
-    // %15 ile %85 arası güvenli alan
     const randomX = Math.floor(Math.random() * 70) + 15; 
     const randomY = Math.floor(Math.random() * 70) + 15; 
 
-    // ÖNEMLİ: Butonu uçuruyoruz ama HTML'deki yeri btn-box sayesinde boş kalıyor
     noBtn.style.position = "fixed";
     noBtn.style.zIndex = "9999";
     noBtn.style.left = randomX + "%";
@@ -36,11 +33,11 @@ noBtn.addEventListener("mouseover", moveButton);
 
 yesBtn.addEventListener("click", () => {
     title.textContent = "YAAAAYYY!";
-    catImg.src = "cat_dance.gif";
+    catImg.src = "cat_dance.gif"; // Eğer bu dosya yoksa resim gitmez, adının doğru olduğundan emin ol
     buttons.style.display = "none";
     finalText.style.display = "block";
     
-    // YAAAAYYY yazısını aşağı çekmek için padding ayarı
+    // Final yazısının (Hilltown) gözükmesi için alanı yukarı kaydırıyoruz
     const win = document.querySelector(".letter-window");
-    win.style.paddingTop = "280px"; 
+    win.style.paddingTop = "180px"; 
 });

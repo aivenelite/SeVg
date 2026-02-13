@@ -5,62 +5,58 @@ body {
     justify-content: center;
     align-items: center;
     background-image: url("heart-bg.jpg");
+    background-size: cover; /* Arka planı kapla */
+    background-position: center;
     font-family: "Pixelify Sans", sans-serif;
+    overflow: hidden; /* Taşmaları engelle */
 }
 
-/* Envelope Screen */
+/* Zarf Ekranı */
 #envelope-container {
     text-align: center;
-    cursor:pointer;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#envelope {
+    width: 150px; /* Mobilde biraz daha küçük */
+    max-width: 80vw;
+    animation: pulse 1.5s infinite;
 }
 
 @keyframes pulse {
-    0% {
-        transform:scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
-#envelope{
-    width: 200px;
-    animation: pulse 1.5s infinite;
-    cursor: pointer;
-}
-
-#letter-container{
+/* Mektup Ekranı */
+#letter-container {
     display: none;
-    position:fixed;
+    position: fixed;
     inset: 0;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
-.letter-window{
-    width: 90vw;
-    max-width: 800px;
-    aspect-ratio: 3/2;
-    padding: 20px 20px 0 20px;
+.letter-window {
+    width: 95vw; /* Mobilde genişliği artırdık */
+    max-width: 500px; /* Masaüstünde çok devasa olmasın */
+    min-height: 400px;
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     background-image: url("window.png");
-    background-size: contain;
+    background-size: 100% 100%; /* Pencere resmini tam oturtur */
     background-repeat: no-repeat;
     background-position: center;
-    border-radius: 12px;
-    gap: 1px;
-    padding-top: 180px;
-
-    transform: scale(1.2);
-    opacity: 0;
     transition: transform 0.6s ease, opacity 0.6s ease;
+    transform: scale(0.8);
+    opacity: 0;
 }
 
 .letter-window.open {
@@ -69,71 +65,52 @@ body {
 }
 
 h1 {
-    font-size: 30px;
-    margin:0;
-}
-
-p {
-    font-size: 40px;
-}
-
-/* Cat */
-
-.cat {
-    width: 250px;
+    font-size: 24px; /* Mobilde daha okunabilir */
     margin: 10px 0;
-    transition: width 0.4s ease;
 }
 
-.letter-window.final .cat {
-    width: 180px;
+/* Kedicik */
+.cat {
+    width: 150px;
+    height: auto;
+    margin: 10px 0;
 }
 
-/* buttons */
+/* Butonlar */
 .buttons {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    position: relative;
-}
-
-.no-wrapper{
-    position:relative;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
 }
 
 .btn {
-    width: 120px;
+    width: 100px; /* Buton boyutunu sabitledik */
+    height: auto;
     cursor: pointer;
-    user-select: none;
+    touch-action: manipulation; /* Mobilde hızlı tıklama için */
 }
 
-.yes-btn,
-.no-btn {
-width: 120px;
-height: auto;
-display: inline-block;
-}
-
-.yes-btn {
+.no-wrapper {
     position: relative;
-    z-index: 2;
-    transform-origin: center center;
-    transition: transform 0.3s ease;
+    width: 100px;
+    height: 50px;
 }
 
 .no-btn {
-    z-index: 1;
-    position: relative;
-    transition: transform 0.15s ease;
-    cursor: default;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
-.final-text{
-    font-size: 22px;
+.final-text {
+    font-size: 18px;
     line-height: 1.4;
-    text-align: center;
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: rgba(255,240,240,0.5);
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 12px;
+    margin-top: 10px;
+    max-width: 80%;
 }

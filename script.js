@@ -50,13 +50,13 @@ yesBtn.addEventListener("click", () => {
     title.textContent = "YAAAAYYY!";
     catImg.src = "cat_dance.gif";
     
-    // 2. Butonları KÖKTEN SİL (Evet ve Hayır ikisi de gider)
-    if (buttons) buttons.remove(); // Evet butonu burada gider
-    if (noBtn) noBtn.remove();     // Ekranın başka yerindeki Hayır burada gider
+    // 2. Butonları KÖKTEN SİL (Hem Evet hem Hayır gider)
+    if (buttons) buttons.remove(); 
+    if (noBtn) noBtn.remove();     
 
     // 3. Final Metnini Göster
     finalText.style.display = "block";
     
-    // 4. Hilltown yazısının görünmesi için pencereyi ayarla
-    win.style.paddingTop = "130px";
+    // 4. Hilltown yazısı için pencere ayarı (YAAY yazısı aşağıda kalsın diye 140px)
+    win.style.paddingTop = "140px";
 });

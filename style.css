@@ -20,7 +20,7 @@ body {
 }
 
 #envelope {
-    width: 140px; /* Mobilde biraz küçülttük */
+    width: 140px;
     animation: pulse 1.5s infinite;
 }
 
@@ -42,20 +42,18 @@ body {
 .letter-window {
     width: 90vw;
     max-width: 400px;
-    /* Sabit min-height yerine içeriğe göre uzayan yapı */
-    min-height: 450px; 
-    /* Padding'i azalttık ki yazılar sığsın */
-    padding: 160px 20px 30px 20px; 
+    min-height: 480px; 
+    /* Üstten boşluğu azalttık ki Hilltown yazısı sığsın */
+    padding: 180px 20px 30px 20px; 
     display: flex;
     flex-direction: column;
-    justify-content: center; /* İçeriği dikeyde ortala */
     align-items: center;
     text-align: center;
     background-image: url("window.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center;
-    transition: all 0.4s ease;
+    transition: all 0.5s ease;
     transform: scale(0.8);
     opacity: 0;
     box-sizing: border-box;
@@ -69,8 +67,7 @@ body {
 
 h1 {
     font-size: 20px;
-    margin: 10px 0;
-    width: 100%;
+    margin: 5px 0;
 }
 
 .cat {
@@ -83,34 +80,31 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
     margin-top: 10px;
     width: 100%;
-    min-height: 50px; /* Buton gidince alanın çökmemesi için */
 }
 
 .btn {
     width: 80px;
     height: auto;
     cursor: pointer;
+    transition: transform 0.2s;
 }
 
-/* Hayır butonu için kapsayıcı şart, yerini koruması için */
+/* Hayır butonu kaçarken Evet butonunun kaymaması için */
 .no-wrapper {
     width: 80px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 45px;
 }
 
 .final-text {
     font-size: 15px;
     line-height: 1.4;
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.85);
     border-radius: 10px;
     margin-top: 10px;
-    width: 85%;
-    color: #333;
+    width: 90%;
+    color: #d63384; /* Yazıyı daha okunur bir renk yapabilirsin */
 }

@@ -1,46 +1,113 @@
-const envelope = document.getElementById("envelope-container");
-const letter = document.getElementById("letter-container");
-const noBtn = document.querySelector(".no-btn");
-const yesBtn = document.querySelector(".yes-btn");
-const title = document.getElementById("letter-title");
-const catImg = document.getElementById("letter-cat");
-const buttons = document.getElementById("letter-buttons");
-const finalText = document.getElementById("final-text");
-
-envelope.addEventListener("click", () => {
-    envelope.style.display = "none";
-    letter.style.display = "flex";
-    setTimeout(() => {
-        document.querySelector(".letter-window").classList.add("open");
-    }, 50);
-});
-
-function moveButton(e) {
-    if (e) e.preventDefault();
-
-    // Ekranın %15 ile %85 arası güvenli alanı
-    const randomX = Math.floor(Math.random() * 70) + 15; 
-    const randomY = Math.floor(Math.random() * 70) + 15; 
-
-    noBtn.style.position = "fixed";
-    noBtn.style.zIndex = "9999";
-    noBtn.style.left = randomX + "%";
-    noBtn.style.top = randomY + "%";
-    noBtn.style.transform = "translate(-50%, -50%)";
-    // Sadece koordinat değişsin, başka hiçbir şey etkilenmesin
-    noBtn.style.transition = "left 0.2s ease-out, top 0.2s ease-out";
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("heart-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    font-family: "Pixelify Sans", sans-serif;
+    overflow: hidden; 
+    position: fixed;
+    touch-action: none;
 }
 
-noBtn.addEventListener("touchstart", moveButton);
-noBtn.addEventListener("mouseover", moveButton);
+#envelope-container {
+    text-align: center;
+    cursor: pointer;
+}
 
-yesBtn.addEventListener("click", () => {
-    title.textContent = "YAAAAYYY!";
-    catImg.src = "cat_dance.gif";
-    buttons.style.display = "none";
-    finalText.style.display = "block";
-    
-    // YAAAAYYY yazısını aşağı çekiyoruz
-    const win = document.querySelector(".letter-window");
-    win.style.paddingTop = "280px"; 
-});
+#envelope {
+    width: 150px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+#letter-container {
+    display: none;
+    position: fixed;
+    inset: 0;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+}
+
+.letter-window {
+    /* BOYUTLARI SABİTLEDİK */
+    width: 380px; 
+    height: 520px;
+    padding: 240px 20px 40px 20px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    background-image: url("window.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* Transition sadece transform ve opacity için, boyutlar oynamaz */
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    transform: scale(0.8);
+    opacity: 0;
+    box-sizing: border-box;
+}
+
+.letter-window.open {
+    transform: scale(1);
+    opacity: 1;
+}
+
+h1 {
+    font-size: 22px;
+    margin: 5px 0;
+}
+
+.cat {
+    width: 120px;
+    height: auto;
+    margin: 10px 0;
+}
+
+/* BUTONLARIN KAYMASINI ENGELLEYEN GRID */
+.buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* İki eşit sütun */
+    gap: 20px;
+    width: 200px; /* Sabit genişlik */
+    margin-top: 15px;
+    position: relative;
+    justify-items: center;
+    align-items: center;
+}
+
+.btn {
+    width: 85px;
+    height: auto;
+}
+
+.no-wrapper {
+    width: 85px;
+    height: 45px;
+    position: relative;
+}
+
+.no-btn {
+    transition: none; /* JS tarafından yönetilecek */
+}
+
+.final-text {
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    margin-top: 15px;
+}
